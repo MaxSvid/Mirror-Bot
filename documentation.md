@@ -55,6 +55,8 @@ Simple deployment to a VPS Linux Server
 - UV Enviroment Guide Video --> https://www.youtube.com/watch?v=6pttmsBSi8M
 
 - [Python Classes and Objects](https://www.geeksforgeeks.org/python/python-classes-and-objects/) for config.py
+
+- [Python dataclasses Module](https://www.w3schools.com/python/ref_module_dataclasses.asp)
 ---
 
 # Git Commands Guide and Cheat Sheet
