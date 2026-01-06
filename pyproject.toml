@@ -1,0 +1,10 @@
+[project]
+name = "team-bot-telegram"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiogram>=3.24.0",
+    "dotenv>=0.9.9",
+]
