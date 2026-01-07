@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT,
+    username VARCHAR(100) NUT NULL
+);
