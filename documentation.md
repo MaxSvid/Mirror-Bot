@@ -1,6 +1,6 @@
 # Project Structure
 
-# Telegram Multi-Purpose Bot
+## Telegram Multi-Purpose Bot
 
 Idea to design Telegram bot for private group chat.  
 The bot combines **group moderation**, **GeminiAI API-powered chatting**, **content scraping**, **crypto alerts**, and **daily reports**, deployed using **Docker** on **VPS**.
@@ -54,9 +54,13 @@ Simple deployment to a VPS Linux Server
 
 - UV Enviroment Guide Video --> https://www.youtube.com/watch?v=6pttmsBSi8M
 
+- [Fast way to create useful .gitignore files for project](https://www.toptal.com/developers/gitignore)
+
+
 - [Python Classes and Objects](https://www.geeksforgeeks.org/python/python-classes-and-objects/) for config.py
 
 - [Python dataclasses Module](https://www.w3schools.com/python/ref_module_dataclasses.asp)
+
 ---
 
 # Git Commands Guide and Cheat Sheet
@@ -77,6 +81,10 @@ git commit -m "..."
 ```html
 git push origin main
 ```
+# Aiogram Documentation
+
+- [A finite-state machine (FSM) a mathematical model of computation.](https://docs.aiogram.dev/en/latest/dispatcher/finite_state_machine/index.html)
+
 
 # Docker Hub Links to learn
 
@@ -92,4 +100,24 @@ git push origin main
 
 - [Running with Non-Root User and Syncing Host with Container Permissions](https://dev.to/izackv/running-a-docker-container-with-a-custom-non-root-user-syncing-host-and-container-permissions-26mb)
 
+'''html
+show_alert=True ---> shows message with ok 
+'''
 
+# keyboars.py file strucute
+
+ReplyKeyboardMarkup -> 4 buttons menu on /start command
+
+## Callback buttons for each keyboard option:
+
+- gemini_options -> (text='Gemini Chat') inside button in ReplyKeyboardMarkup reply
+
+- reports_options ->
+
+- alerts_options ->
+
+- settings_options -> 
+
+```html
+show_alert=True --> shows message with ok 
+```
