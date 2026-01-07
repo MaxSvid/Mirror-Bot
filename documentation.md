@@ -107,6 +107,23 @@ show_alert=True ---> shows message with ok
 # keyboars.py file strucute
 
 ReplyKeyboardMarkup -> 4 buttons menu on /start command
+Idea not show the reply keyboard by default
+
+Reply keyboard = global UI state
+Inline keyboard = contextual UI
+
+ReplyKeyboardMarkup:
+- Persistent
+- Saved by Telegram app
+- Independent of bot online/offline state
+
+InlineKeyboardMarkup:
+- Not persistent
+- Exists only under a specific message
+- Disappears with the message context
+
+ReplyKeyboardRemove:
+- to remove / hide the keyboard properly
 
 ## Callback buttons for each keyboard option:
 
@@ -120,4 +137,9 @@ ReplyKeyboardMarkup -> 4 buttons menu on /start command
 
 ```html
 show_alert=True --> shows message with ok 
+```
+ONLY to ReplyKeyboardMarkup
+```html
+resize_keyboard=True,
+input_field_placeholder='Choose the options...'
 ```

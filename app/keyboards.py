@@ -2,25 +2,33 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
                            InlineKeyboardMarkup, InlineKeyboardButton)  
 
 # Menu Buttons
-main = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='GeminiAI')],
-                                    [KeyboardButton(text='Job Reports')],
-                                    [KeyboardButton(text='Crypto Alerts')],
-                                    [KeyboardButton(text='Settings')]],
-                                    resize_keyboard=True,
-                                    input_field_placeholder='Choose the options...')
+main = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text='GeminiAI', callback_data='menu_gemini')],
+        [InlineKeyboardButton(text='Job Reports', callback_data='menu_reports')],
+        [InlineKeyboardButton(text='Crypto Alerts', callback_data='menu_alerts')],
+        [InlineKeyboardButton(text='Settings', callback_data='menu_settings')]
+        ])
 
-gemini_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Gemini Chat', 
-                                                                             callback_data='gemini_chat')],                                             
-                                                ])
+# Back button
+back_button = InlineKeyboardMarkup(
+    inline_keyboard=[[InlineKeyboardButton(text="Back", callback_data="menu_back")]
+    ])
 
-reports_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Overall', 
-                                                                              callback_data='reports_overall')],                                             
-                                                ])
+# Menu Options
+gemini_options = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text="Gemini Chat", callback_data="gemini_chat")],
+    *back_button.inline_keyboard
+    ])
 
-alerts_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Top 10 Coins', 
-                                                                              callback_data='alerts_coins')],                                             
-                                                ])
+reports_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+    text="Overall", callback_data="reports_overall")]
+    ])
 
-settings_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Bots GitHub Link', 
-                                                                              callback_data='settings_github')],                                             
-                                                ])
+alerts_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+    text="Top 10 coins", callback_data="alerts_coins")]
+    ])
+
+settings_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+    text="Bot GitHub", callback_data="settings_github")]
+    ])

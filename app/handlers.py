@@ -4,7 +4,7 @@ from aiogram.filters import CommandStart, Command
 
 # Idea for different replies options
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.fsm.state import FSMContext
+#from aiogram.fsm.state import FSMContext
 
 import app.keyboards as keyboard
 import logging
@@ -17,29 +17,43 @@ class Overall():
     pass
 
 # Command handlers
+MENU_MESSAGE = "Hello! I'm Mirror NPC🤖"
+
 @router.message(CommandStart())
 async def cmd_start(message: Message) -> None:
 
     user_id = message.from_user.id
     logging.info(f"user_id={user_id}")
 
-    await message.answer("Hello! I'm Mirror NPC.🤖", 
-                         reply_markup=keyboard.main)
+    await message.answer(MENU_MESSAGE, reply_markup=keyboard.main)
+    
+@router.callback_query(F.data == 'menu_back')
+async def menu_back(callback: CallbackQuery) -> None:
+    # shows main menu buttons, no need to change the message text
+    await callback.message.edit_text(MENU_MESSAGE, reply_markup=keyboard.main)
+    await callback.answer()
 
 @router.message(Command('help'))
 async def cmd_help(message: Message) -> None:
     await message.answer("Command help, there is no help...")
 
-@router.message(F.text == 'Окей')
+# Clear command to add for shutting down menu
+@router.message(Command('clear'))
+async def cmd_clear(message: Message) -> None:
+    await message.answer("Command help, there is no help...")
+
+# Funny reply
+@router.message(F.text == 'окей')
 async def cmd_reply(message: Message) -> None:
     await message.answer("Ага okay okay поговори")
 
-# Gemini menu options, 
-@router.message(F.text == 'GeminiAI')
-async def gemini_menu(message: Message) -> None:
-    await message.answer('Chat with Agent', reply_markup=keyboard.gemini_options)
+# Gemini menu: this function is an incoming callback query from a callback button in an inline keyboard
+@router.callback_query(F.data == 'menu_gemini')
+async def gemini_menu(callback: CallbackQuery) -> None:
+    await callback.message.edit_text(
+        'Chat with Agent',
+        reply_markup=keyboard.gemini_options
+        )
+    await callback.answer()
 
-# This function is an incoming callback query from a callback button in an inline keyboard
-@router.callback_query(F.data == 'gemini_chat')
-async def gemini_chat(callback: CallbackQuery) -> None:
-    await callback.answer('Chat with Agent')
+
