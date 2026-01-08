@@ -17,7 +17,7 @@ class Overall():
     pass
 
 # Command handlers
-MENU_MESSAGE = "Hello! I'm Mirror NPC🤖"
+MENU_MESSAGE = "Hello! I'm Mirror NPC bot🤖"
 
 @router.message(CommandStart())
 async def cmd_start(message: Message) -> None:
@@ -35,12 +35,12 @@ async def menu_back(callback: CallbackQuery) -> None:
 
 @router.message(Command('help'))
 async def cmd_help(message: Message) -> None:
-    await message.answer("Command help, there is no help...")
+    await message.answer("Command help, there is no help lox xx")
 
 # Clear command to add for shutting down menu
 @router.message(Command('clear'))
 async def cmd_clear(message: Message) -> None:
-    await message.answer("Command help, there is no help...")
+    await message.answer("It will clear something, not sure what yet...")
 
 # Funny reply
 @router.message(F.text == 'окей')
@@ -53,6 +53,33 @@ async def gemini_menu(callback: CallbackQuery) -> None:
     await callback.message.edit_text(
         'Chat with Agent',
         reply_markup=keyboard.gemini_options
+        )
+    await callback.answer()
+
+# Job reports menu:
+@router.callback_query(F.data == 'reports_menu')
+async def settings_reports(callback: CallbackQuery) -> None:
+    await callback.message.edit_text(
+        'Job Report/Search Options',
+        reply_markup=keyboard.reports_options
+        )
+    await callback.answer()
+
+# Crypto alerts menu:
+@router.callback_query(F.data == 'menu_alerts')
+async def settings_reports(callback: CallbackQuery) -> None:
+    await callback.message.edit_text(
+        'Crypto prices and DeFi Updates',
+        reply_markup=keyboard.alerts_options
+        )
+    await callback.answer()
+
+# Setting menu
+@router.callback_query(F.data == 'menu_settings')
+async def settings_menu(callback: CallbackQuery) -> None:
+    await callback.message.edit_text(
+        'Avaliable Settings',
+        reply_markup=keyboard.settings_options
         )
     await callback.answer()
 
