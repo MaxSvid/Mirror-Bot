@@ -1,7 +1,12 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS logs;
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     user_id BIGINT,
     username VARCHAR(100) NUT NULL
+);
+
+CREATE TABLE logs(
+
 );

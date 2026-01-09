@@ -1,1 +1,13 @@
-version: '3.8'
+version: '3.9'
+
+services:
+  bot:
+    build: .
+    container_name: mirror_bot
+    restart: always
+    env_file:
+      - .env
+
+
+  postgres:
+    image: postgres
