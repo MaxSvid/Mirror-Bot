@@ -2,9 +2,8 @@
 
 Check [documentation file](documentation.md)
 
-# Mirror Bot
+Mirror Bot is a multifunctional Telegram bot.
 
-Mirror Bot is a multifunctional Telegram bot 
 It combines chat moderation tools, an AI agent, job market monitoring, and crypto analytics into a single interface.
 
 The bot was created to:
@@ -43,4 +42,5 @@ Designed to track market movements in real time and analyze charts for:
 
 ## Status
 - Actively developed
+
 
