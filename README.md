@@ -32,7 +32,7 @@ The bot was created to:
 
 ---
 
-### Job Market Web Scraping
+### Job Market Web Scraping [/job_reports]
 The bot scrapes job offers from the market and categorizes them into:
 - Data Analyst (DA)
 - Data Scientist (DS)
@@ -53,3 +53,4 @@ Designed to track market movements in real time
 - Actively developed
 - Features are modular and extendable
 - Designed to scale with additional AI tools and integrations
+
