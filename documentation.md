@@ -56,10 +56,17 @@ Simple deployment to a VPS Linux Server
 
 - [Fast way to create useful .gitignore files for project](https://www.toptal.com/developers/gitignore)
 
+- [__init__ in Python](https://www.geeksforgeeks.org/python/__init__-in-python/)
 
 - [Python Classes and Objects](https://www.geeksforgeeks.org/python/python-classes-and-objects/) for config.py
 
 - [Python dataclasses Module](https://www.w3schools.com/python/ref_module_dataclasses.asp)
+
+# Requests Library
+
+- [Requests: HTTP for Humans™](https://requests.readthedocs.io/en/latest/)
+
+- [Exception Handling Of Python Requests Module](https://www.geeksforgeeks.org/python/exception-handling-of-python-requests-module/)
 
 ---
 
