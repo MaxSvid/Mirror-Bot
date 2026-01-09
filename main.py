@@ -24,6 +24,8 @@ if __name__ == '__main__':
                         level=logging.INFO,
                         stream=sys.stdout
                         )
+        logging.info('Running Mirror Bot...')
         asyncio.run(main())
+        print('Running Mirror Bot...')
     except KeyboardInterrupt:
         print('Bot turned off...')
