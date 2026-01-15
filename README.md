@@ -2,19 +2,18 @@
 
 Check [documentation file](documentation.md)
 
-# 🤖 Mirror Bot
+Mirror Bot is a multifunctional Telegram bot.
 
-Mirror Bot is a multifunctional Telegram bot 
-It combines chat moderation tools, an AI-powered agent, job market monitoring, and crypto analytics into a single interface.
-
----
+It combines chat moderation tools, an AI agent, job market monitoring, and crypto analytics into a single interface.
 
 The bot was created to:
-- Provide **fun and interactive chat moderation**
-- Act as an **AI Agent** that users can chat with and request information from
-- Deliver **real-time updates** when needed
+- Provide engaging and interactive chat moderation
+- Act as an AI Agent that users can chat with and request information from
+- Deliver real-time updates when needed
 - Automate data collection from external sources
 - Monitor crypto markets and DeFi activity
+
+Currently, a Linux VPS server is used to host the PostgreSQL database, running via Docker and Docker-Compose 24/7.
 
 ---
 
@@ -22,15 +21,9 @@ The bot was created to:
 
 ### AI Agent
 - Interactive AI-powered chat
-- Can be extended with tools, memory, or external APIs
-
----
 
 ### Chat Moderation
 - Handles basic user interactions
-- Can be expanded to include moderation logic, filters, or admin commands
-
----
 
 ### Job Market Web Scraping
 The bot scrapes job offers from the market and categorizes them into:
@@ -39,10 +32,8 @@ The bot scrapes job offers from the market and categorizes them into:
 - Software Engineering
 - Business & Management roles
 
----
-
 ### Crypto & DeFi Monitoring
-Designed to track market movements in real time
+Designed to track market movements in real time and analyze charts for:
 - DEX Liquidity Pool monitoring
 - Liquidity updates and alerts
 - Crypto price alerts
@@ -51,5 +42,5 @@ Designed to track market movements in real time
 
 ## Status
 - Actively developed
-- Features are modular and extendable
-- Designed to scale with additional AI tools and integrations
+
+
