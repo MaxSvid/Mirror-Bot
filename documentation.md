@@ -62,12 +62,17 @@ Simple deployment to a VPS Linux Server
 
 - [Python dataclasses Module](https://www.w3schools.com/python/ref_module_dataclasses.asp)
 
-# Requests Library
+- [asyncio in Python](https://www.geeksforgeeks.org/python/asyncio-in-python/)
+
+## Requests Library, we are using HTTPX for asyncio
 
 - [Requests: HTTP for Humans™](https://requests.readthedocs.io/en/latest/)
 
 - [Exception Handling Of Python Requests Module](https://www.geeksforgeeks.org/python/exception-handling-of-python-requests-module/)
 
+- [HTTPX client document](https://www.python-httpx.org/)
+
+- [Getting Started with HTTPX](https://betterstack.com/community/guides/scaling-python/httpx-explained/)
 ---
 
 # Git Commands Guide and Cheat Sheet

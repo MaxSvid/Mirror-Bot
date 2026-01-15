@@ -2,7 +2,6 @@
 # Do NOT run files in gemini folders directly for right now
 # Run as module: uv run -m gemini.chat
 # -------------------------------------------------------------- #
-
 import os
 from dotenv import load_dotenv
 from config import settings

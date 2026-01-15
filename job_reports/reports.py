@@ -1,18 +1,27 @@
 import os
-import requests
+import httpx # for asyncio 
 from bs4 import BeautifulSoup
+import pandas as pd
+import asyncio
 
 from dotenv import load_dotenv
 load_dotenv() 
 
 from job_config import website
 
+async def reports() -> None:
+    pass
+    try:
+        pass
+    except KeyError as e:
+        print(f"Error: {e}")
+
 try:
-    response = requests.get(website.DJINNI_JOBS_URL,
+    response = httpx.get(website.DJINNI_JOBS_URL,
                             headers={"User-Agent": "Mozilla/5.0"})
     response.raise_for_status()
     print("Connection works = 200")
-except requests.exceptions.RequestException as e:
+except httpx.exceptions.RequestException as e:
     print(f"Request failed: {e}")
 
 
