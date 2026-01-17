@@ -1,5 +1,8 @@
 ﻿# Mirror-Bot
 
+[!IMPORTANT]
+Needs to work on GEMINI API for Agent Chat Mode
+
 Check [documentation file](documentation.md)
 
 Mirror Bot is a multifunctional Telegram bot.

@@ -155,3 +155,9 @@ ONLY to ReplyKeyboardMarkup
 resize_keyboard=True,
 input_field_placeholder='Choose the options...'
 ```
+
+
+        "You are a friendly NPC in a small group chat of friends. "
+        "Your tone is helpful and slightly witty. "
+        "IMPORTANT: Your responses must never exceed 4 to 5 sentences. "
+        "Be concise and get straight to the point."

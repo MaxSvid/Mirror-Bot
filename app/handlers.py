@@ -1,20 +1,21 @@
-from aiogram import Bot, Dispatcher, F, Router
+from aiogram import Bot, Dispatcher, F, Router, types
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart, Command
-
-# Idea for different replies options
-from aiogram.fsm.state import State, StatesGroup
-#from aiogram.fsm.state import FSMContext
+from aiogram.fsm.state import State, StatesGroup   # Finite State Machine
+from aiogram.fsm.state import FSMContext
 
 import app.keyboards as keyboard
 import logging
+
+# Gemini Itegration 
+from app.gemini.chat import npc_agent_reply
 
 # All handlers should be attached to the Router (or Dispatcher)
 router = Router()
 
 # FSM
-class Overall():
-    pass
+class NPCState(StatesGroup):
+    waiting_for_msg = State()
 
 # Command handlers
 MENU_MESSAGE = "Hello! I'm Mirror NPC bot🤖"
@@ -47,14 +48,39 @@ async def cmd_clear(message: Message) -> None:
 async def cmd_reply(message: Message) -> None:
     await message.answer("Ага okay okay поговори")
 
+# ------- GEMINI PROBLEM CONNECT FROM gemini/chat.py -------
+
 # Gemini menu: this function is an incoming callback query from a callback button in an inline keyboard
 @router.callback_query(F.data == 'menu_gemini')
 async def gemini_menu(callback: CallbackQuery) -> None:
     await callback.message.edit_text(
         'Chat with Agent',
-        reply_markup=keyboard.gemini_options
+        reply_markup=keyboard.gemini_options,
+        parse_mode="Markdown"
         )
     await callback.answer()
+
+# Gemini Start Chat callback
+@router.callback_query(F.data == 'gemini_chat')
+async def start_gemini_chat(callback: CallbackQuery, state: FSMContext) -> None:
+    # Set the user into NPC state
+    await state.set_state(NPCState.waiting_for_msg)
+    
+    await callback.message.edit_text(
+        "**NPC Chat Mode: ON**\n\nI'm ready. Talk to me! \n(Type 'exit' or click 'Back' to stop)",
+        reply_markup=keyboard.back_button, # Use your back button here
+        parse_mode="Markdown"
+    )
+    await callback.answer()
+
+# NEW: Handle text while in NPC state
+@router.message(NPCState.waiting_for_msg)
+async def handle_npc_messages(message: Message, state: FSMContext):
+    # Check if user wants to quit
+    if message.text.lower() in ["exit", "stop", "back"]:
+        await state.clear()
+        await message.answer("NPC: Goodbye, traveler! Back to the main menu.", reply_markup=keyboard.main)
+        return
 
 # Job reports menu:
 @router.callback_query(F.data == 'reports_menu')
