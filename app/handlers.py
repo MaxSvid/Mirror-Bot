@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher, F, Router, types
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart, Command
 from aiogram.fsm.state import State, StatesGroup   # Finite State Machine
-from aiogram.fsm.state import FSMContext
+from aiogram.fsm.context import FSMContext
 
 import app.keyboards as keyboard
 import logging
@@ -13,6 +13,8 @@ from app.gemini.chat import npc_agent_reply
 # All handlers should be attached to the Router (or Dispatcher)
 router = Router()
 
+# Random Replies for Links
+import random
 # FSM
 class NPCState(StatesGroup):
     waiting_for_msg = State()
@@ -48,6 +50,14 @@ async def cmd_clear(message: Message) -> None:
 async def cmd_reply(message: Message) -> None:
     await message.answer("Ага okay okay поговори")
 
+# TikTok Links reply 
+@router.message(F.text.contains("https://vt.tiktok.com/"))
+async def tiktoks_reply(message: Message) -> None:
+    funny_replies = ["Опять говно тиктоки...",
+                     "Бесполезную фигню отправил снова...",
+                     "Ну ты дебил"]
+    await message.reply(random.choice(funny_replies))
+
 # ------- GEMINI PROBLEM CONNECT FROM gemini/chat.py -------
 
 # Gemini menu: this function is an incoming callback query from a callback button in an inline keyboard
@@ -75,12 +85,31 @@ async def start_gemini_chat(callback: CallbackQuery, state: FSMContext) -> None:
 
 # NEW: Handle text while in NPC state
 @router.message(NPCState.waiting_for_msg)
-async def handle_npc_messages(message: Message, state: FSMContext):
+async def handle_npc_messages(message: Message, state: FSMContext, bot: Bot):
     # Check if user wants to quit
     if message.text.lower() in ["exit", "stop", "back"]:
         await state.clear()
         await message.answer("NPC: Goodbye, traveler! Back to the main menu.", reply_markup=keyboard.main)
         return
+
+    # Show typing indicator
+    await bot.send_chat_action(chat_id=message.chat.id, action="typing")
+    
+    try:
+        # Get NPC response from Gemini
+        npc_response = await npc_agent_reply(message.text)
+        
+        # Send response to user
+        await message.answer(
+            f"🤖 NPC Agent:\n\n{npc_response}",
+            reply_markup=keyboard.back_button
+        )
+    except Exception as e:
+        logging.error(f"Error processing NPC message: {e}")
+        await message.answer(
+            "❌ Sorry, something went wrong. Please try again.",
+            reply_markup=keyboard.back_button
+        )
 
 # Job reports menu:
 @router.callback_query(F.data == 'reports_menu')

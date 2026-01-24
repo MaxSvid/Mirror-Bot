@@ -3,31 +3,37 @@
 # Run as module: uv run -m gemini.chat
 # -------------------------------------------------------------- #
 from dotenv import load_dotenv
-from config import settings
+import logging
+
+from app.config import settings
 from google import genai
 from google.genai import types
 
 load_dotenv()
 
 # Configure Gemini with modern async client from settings
-gemini_key = genai.Client(api_key=settings.GEMINI_API_KEY).aio
+if not settings.GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY is not set in environment variables")
 
-async def npc_agent_reply(user_text: str):
+gemini_client = genai.Client(api_key=settings.GEMINI_API_KEY)
+
+async def npc_agent_reply(user_text: str) -> str:
+    """Generate NPC reply using Gemini API with 3-4 sentence limit."""
     try:
-        responce = await gemini_key.models.generate_content(
-            model="",
+        response = await gemini_client.aio.models.generate_content(
+            model=settings.gemini.model,
             contents=user_text,
             config=types.GenerateContentConfig(
                 system_instruction=(
-                    "You are a friendly NPC in a private group chat."
-                    "You are witty and brief."
-                    "STRICT RULE: Your response must be between 4 and 5 sentences long."
+                    "You are a friendly NPC in a private group chat. "
+                    "You are witty and brief. "
+                    "STRICT RULE: Your response must be no more than 3-4 sentences long."
                 ),
                 max_output_tokens=300,
                 temperature=0.7,
             )
         )
-        return responce.text
+        return response.text
     except Exception as e:
-        print(f"Gemini API Error: {e}")
-        return "NPC Agent not working... Try to fix it"
+        logging.error(f"Gemini API Error: {e}")
+        return "🤖 NPC Agent encountered an issue. Please try again later."

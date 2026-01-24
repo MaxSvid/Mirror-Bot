@@ -161,3 +161,6 @@ input_field_placeholder='Choose the options...'
         "Your tone is helpful and slightly witty. "
         "IMPORTANT: Your responses must never exceed 4 to 5 sentences. "
         "Be concise and get straight to the point."
+
+## Added random auto replies on links
+- [Python Random choice() Method](https://www.w3schools.com/python/ref_random_choice.asp) 

@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 load_dotenv()
 
-from config import settings
+from app.config import settings
 from app.handlers import router
 
 # All handlers should be attached to the Router (or Dispatcher)
