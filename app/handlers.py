@@ -13,8 +13,6 @@ from app.gemini.chat import npc_agent_reply
 # All handlers should be attached to the Router (or Dispatcher)
 router = Router()
 
-# Random Replies for Links
-import random
 # FSM
 class NPCState(StatesGroup):
     waiting_for_msg = State()
@@ -44,19 +42,6 @@ async def cmd_help(message: Message) -> None:
 @router.message(Command('clear'))
 async def cmd_clear(message: Message) -> None:
     await message.answer("It will clear something, not sure what yet...")
-
-# Funny reply
-@router.message(F.text == 'окей')
-async def cmd_reply(message: Message) -> None:
-    await message.answer("Ага okay okay поговори")
-
-# TikTok Links reply 
-@router.message(F.text.contains("https://vt.tiktok.com/"))
-async def tiktoks_reply(message: Message) -> None:
-    funny_replies = ["Опять говно тиктоки...",
-                     "Бесполезную фигню отправил снова...",
-                     "Ну ты дебил"]
-    await message.reply(random.choice(funny_replies))
 
 # ------- GEMINI PROBLEM CONNECT FROM gemini/chat.py -------
 
@@ -107,7 +92,7 @@ async def handle_npc_messages(message: Message, state: FSMContext, bot: Bot):
     except Exception as e:
         logging.error(f"Error processing NPC message: {e}")
         await message.answer(
-            "❌ Sorry, something went wrong. Please try again.",
+            "Sorry, something went wrong. Please try again or check code.",
             reply_markup=keyboard.back_button
         )
 

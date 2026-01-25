@@ -164,3 +164,13 @@ input_field_placeholder='Choose the options...'
 
 ## Added random auto replies on links
 - [Python Random choice() Method](https://www.w3schools.com/python/ref_random_choice.asp) 
+
+# Jobs Web Scraping
+
+Basic idea and methods used for job scraping, currently focusing on [Djinni website](https://djinni.co/jobs/)
+
+[Video to watch on Web Scraping Python](https://www.youtube.com/watch?v=fgFWo0sDApA)
+[Simple Async Parcer Source Example](https://gitlab.com/cbs6230646/1609/pythonadvanced/05_06_threads_async_multiprocessing/-/blob/main/async_parcer.py?ref_type=heads)
+
+- First you need to access Developer Tools on your browser
+https://helpdeskgeek.com/wp-content/pictures/2020/07/Chrome-DevTools-Menu.png

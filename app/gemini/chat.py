@@ -21,7 +21,7 @@ async def npc_agent_reply(user_text: str) -> str:
     """Generate NPC reply using Gemini API with 3-4 sentence limit."""
     try:
         response = await gemini_client.aio.models.generate_content(
-            model=settings.gemini.model,
+            model="gemini-2.0-flash",
             contents=user_text,
             config=types.GenerateContentConfig(
                 system_instruction=(

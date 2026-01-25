@@ -7,15 +7,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app.config import settings
-from app.handlers import router
-
-# All handlers should be attached to the Router (or Dispatcher)
+# All handlers or replies should be attached to the Router (or Dispatcher)
+from app.handlers import router as main_router
+from app.replies import router as replies_router
 
 # Polling bot
 async def main() -> None:
     bot = Bot(token=settings.BOT_TOKEN)
     dp = Dispatcher()
-    dp.include_router(router)
+
+    dp.include_router(main_router)
+    dp.include_router(replies_router)
+
     await dp.start_polling(bot)
 
 if __name__ == '__main__':

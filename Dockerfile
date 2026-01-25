@@ -13,7 +13,8 @@ LABEL description="Mirror Telegram Bot"
 # In Linux it start with /home
 WORKDIR /home/docker_user/app
 
-# Python settings
+# Python settings, __pycache__ 
+ENV PYTHONDONTWRITEBYTECODE=1
 
 # Copy and install dependencies
 # This file depends on docker-compose to copy uv.lock
