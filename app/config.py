@@ -17,6 +17,7 @@ class Settings:
     # Bot settings
     BOT_TOKEN: str = os.environ.get("BOT_TOKEN", "")
     CHAT_ID: str = os.environ.get("CHAT_ID", "")
+    COINGECKO_API: str = os.environ.get("COINGECKO_API", "")
     
     # API configurations
     gemini: GeminiConfig = dataclasses.field(default_factory=GeminiConfig)

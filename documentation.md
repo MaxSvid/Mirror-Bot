@@ -165,6 +165,12 @@ input_field_placeholder='Choose the options...'
 ## Added random auto replies on links
 - [Python Random choice() Method](https://www.w3schools.com/python/ref_random_choice.asp) 
 
+# CoinGecko API 
+
+- Introduction to CoinGecko API Work ---> https://docs.coingecko.com/ 
+
+- [Python Query Coingecko API Documentation Link](https://www.coingecko.com/learn/python-query-coingecko-api)
+
 # Jobs Web Scraping
 
 Basic idea and methods used for job scraping, currently focusing on [Djinni website](https://djinni.co/jobs/)
