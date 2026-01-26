@@ -21,7 +21,7 @@ async def npc_agent_reply(user_text: str) -> str:
     """Generate NPC reply using Gemini API with 3-4 sentence limit."""
     try:
         response = await gemini_client.aio.models.generate_content(
-            model="gemini-2.0-flash",
+            model=settings.gemini.model,
             contents=user_text,
             config=types.GenerateContentConfig(
                 system_instruction=(
@@ -36,4 +36,6 @@ async def npc_agent_reply(user_text: str) -> str:
         return response.text
     except Exception as e:
         logging.error(f"Gemini API Error: {e}")
-        return "🤖 NPC Agent encountered an issue. Please try again later."
+        if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+            return "API Quota Exceeded. Please try again later."
+        return "Agent encountered an issue. Please try again later."

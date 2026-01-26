@@ -9,7 +9,7 @@ load_dotenv()
 class GeminiConfig:
     """Configuration for Gemini AI API."""
     api_key: str = os.environ.get("GEMINI_API_KEY", "")
-    model: str = "gemini-2.0-flash"
+    model: str = "gemini-flash-latest"
 
 @dataclasses.dataclass(frozen=True)
 class Settings:
