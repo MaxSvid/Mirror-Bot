@@ -8,7 +8,7 @@ router = Router()
 import random
 
 # Funny reply on окей message
-@router.message(F.text == 'окей', 'okay')
+@router.message(F.text == 'окей')
 async def cmd_reply(message: Message) -> None:
     await message.answer("Ага okay okay поговори")
 
