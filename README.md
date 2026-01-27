@@ -1,8 +1,6 @@
 ﻿# Mirror-Bot
 
-[!IMPORTANT]
-Needs to work on GEMINI API for Agent Chat Mode
-
+[!IMPORTANT](Changinf Gemini API to Llama model)
 Check [documentation file](documentation.md)
 
 Mirror Bot is a multifunctional Telegram bot.
@@ -11,7 +9,7 @@ It combines chat moderation tools, an AI agent, job market monitoring, and crypt
 
 The bot was created to:
 - Provide engaging and interactive chat moderation
-- Act as an AI Agent that users can chat with and request information from
+- Act as an AI Agent that users can chat with and request information from (text and voice)
 - Deliver real-time updates when needed
 - Automate data collection from external sources
 - Monitor crypto markets and DeFi activity
@@ -26,7 +24,7 @@ Currently, a Linux VPS server is used to host the PostgreSQL database, running v
 - Interactive AI-powered chat
 
 ### Chat Moderation
-- Handles basic user interactions
+- Handles basic user interactions and replies
 
 ### Job Market Web Scraping
 The bot scrapes job offers from the market and categorizes them into:
@@ -42,8 +40,5 @@ Designed to track market movements in real time and analyze charts for:
 - Crypto price alerts
 
 ---
-
-## Status
-- Actively developed
 
 
