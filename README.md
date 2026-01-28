@@ -1,7 +1,6 @@
 ﻿# Mirror-Bot
-
-[!IMPORTANT](Changinf Gemini API to Llama model)
-Check [documentation file](documentation.md)
+Need to upload docker files and the rest of the code... 
+[documentation file](documentation.md)
 
 Mirror Bot is a multifunctional Telegram bot.
 
@@ -40,5 +39,6 @@ Designed to track market movements in real time and analyze charts for:
 - Crypto price alerts
 
 ---
+
 
 
