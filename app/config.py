@@ -12,13 +12,17 @@ class GeminiConfig:
     model: str = "gemini-flash-latest"
 
 @dataclasses.dataclass(frozen=True)
+class LlamaConfig:
+    LLAMA_API: str = os.environ.get("LLAMA_API", "")
+
+@dataclasses.dataclass(frozen=True)
 class Settings:
     """Global application settings."""
     # Bot settings
     BOT_TOKEN: str = os.environ.get("BOT_TOKEN", "")
     CHAT_ID: str = os.environ.get("CHAT_ID", "")
     COINGECKO_API: str = os.environ.get("COINGECKO_API", "")
-    
+
     # API configurations
     gemini: GeminiConfig = dataclasses.field(default_factory=GeminiConfig)
     

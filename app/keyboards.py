@@ -4,9 +4,10 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
 # Menu Buttons
 main = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='GeminiAI', callback_data='menu_gemini')],
+        [InlineKeyboardButton(text='Llama Chat', callback_data='menu_llama')],
         [InlineKeyboardButton(text='Job Reports', callback_data='reports_menu')],
         [InlineKeyboardButton(text='Crypto Alerts', callback_data='menu_alerts')],
+        [InlineKeyboardButton(text='Play Games', callback_data='menu_games')]
         [InlineKeyboardButton(text='Settings', callback_data='menu_settings')]
         ])
 
@@ -17,7 +18,8 @@ back_button = InlineKeyboardMarkup(
 
 # Menu Options
 gemini_options = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="Gemini Chat", callback_data="gemini_chat")],
+    [InlineKeyboardButton(text="Chat", callback_data="llama_chat")],
+    [InlineKeyboardButton(text="Voice", callback_data="llama_voice")],
     *back_button.inline_keyboard
     ])
 

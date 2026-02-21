@@ -8,7 +8,6 @@ dependencies = [
     "aiogram>=3.24.0",
     "beautifulsoup4>=4.14.3",
     "dotenv>=0.9.9",
-    "google-genai>=1.59.0",
     "httpx>=0.28.1",
     "lxml>=6.0.2",
     "pandas>=2.3.3",

@@ -7,7 +7,6 @@ import logging
 
 from app.config import settings
 from google import genai
-from google.genai import types
 
 load_dotenv()
 

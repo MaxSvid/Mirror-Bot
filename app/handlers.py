@@ -8,7 +8,7 @@ import app.keyboards as keyboard
 import logging
 
 # Gemini Itegration 
-from app.gemini.chat import npc_agent_reply
+from app.ai.chat import npc_agent_reply
 
 # All handlers should be attached to the Router (or Dispatcher)
 router = Router()
@@ -43,10 +43,10 @@ async def cmd_help(message: Message) -> None:
 async def cmd_clear(message: Message) -> None:
     await message.answer("It will clear something, not sure what yet...")
 
-# ------- GEMINI PROBLEM CONNECT FROM gemini/chat.py -------
+# ------- CHANGING FROM GEMINI TO LLAMA llama/chat.py -------
 
-# Gemini menu: this function is an incoming callback query from a callback button in an inline keyboard
-@router.callback_query(F.data == 'menu_gemini')
+# Llama AI menu: this function is an incoming callback query from a callback button in an inline keyboard
+@router.callback_query(F.data == 'menu_llama')
 async def gemini_menu(callback: CallbackQuery) -> None:
     await callback.message.edit_text(
         'Chat with Agent',
@@ -56,7 +56,7 @@ async def gemini_menu(callback: CallbackQuery) -> None:
     await callback.answer()
 
 # Gemini Start Chat callback
-@router.callback_query(F.data == 'gemini_chat')
+@router.callback_query(F.data == 'llama_chat')
 async def start_gemini_chat(callback: CallbackQuery, state: FSMContext) -> None:
     # Set the user into NPC state
     await state.set_state(NPCState.waiting_for_msg)
@@ -74,7 +74,7 @@ async def handle_npc_messages(message: Message, state: FSMContext, bot: Bot):
     # Check if user wants to quit
     if message.text.lower() in ["exit", "stop", "back"]:
         await state.clear()
-        await message.answer("NPC: Goodbye, traveler! Back to the main menu.", reply_markup=keyboard.main)
+        await message.answer("NPC: Goodbye! Back to the main menu.", reply_markup=keyboard.main)
         return
 
     # Show typing indicator
