@@ -1,11 +1,7 @@
 ﻿# Mirror-Bot
-<<<<<<< HEAD
 
 Check [documentation file](documentation.md)
-=======
-Need to upload docker files and the rest of the code... 
-[documentation file](documentation.md)
->>>>>>> 7138c23cd76816ceb81922363ebf47d842be2e4e
+---
 
 Mirror Bot is a multifunctional Telegram bot.
 
@@ -14,7 +10,6 @@ It combines chat moderation tools, an AI agent, job market monitoring, and user 
 The bot was created to:
 - Provide engaging and interactive chat moderation
 - Act as an AI Agent that users can chat with and request information from (text and voice)
-- Deliver real-time updates when needed
 - Automate data collection from external sources
 - Play tic-tac-toe with friends or AI bot
 
@@ -38,5 +33,4 @@ The bot scrapes job offers from the market and categorizes them into:
 - Business & Management roles
 ---
 
-
-
+Still under development
