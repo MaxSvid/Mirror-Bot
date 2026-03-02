@@ -1,25 +1,18 @@
-# recommend to use docker ai CLI and light py version
+FROM python:3.13-slim
 
-FROM python:3.13-slim AS base
+WORKDIR /app
 
-LABEL maintainer="Team DeFi Mirror: Max(https://t.me/mak_sjr)"
-LABEL author="mak_sjr"
-LABEL version="1.0"
-LABEL description="Mirror Telegram Bot"
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-# Create non-root user
+# Install uv from official image
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-# Set working dir to the app folder
-# In Linux it start with /home
-WORKDIR /home/docker_user/app
+# Install dependencies (separate layer for caching)
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
 
-# Python settings, __pycache__ 
-ENV PYTHONDONTWRITEBYTECODE=1
+# Copy source
+COPY . .
 
-# Copy and install dependencies
-# This file depends on docker-compose to copy uv.lock
-
-# Copy the project
-
-# Host start
-CMD ["uv" "start" "main.py"]
+CMD ["uv", "run", "python", "main.py"]

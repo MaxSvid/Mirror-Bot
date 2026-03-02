@@ -1,45 +1,41 @@
-from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton, 
-                           InlineKeyboardMarkup, InlineKeyboardButton)  
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-# Menu Buttons
+# Back button (reused across menus)
+back_button = InlineKeyboardMarkup(
+    inline_keyboard=[[InlineKeyboardButton(text="Back", callback_data="menu_back")]]
+)
+
+# Main menu
 main = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='Llama Chat', callback_data='menu_llama')],
-        [InlineKeyboardButton(text='Job Reports', callback_data='reports_menu')],
-        [InlineKeyboardButton(text='Crypto Alerts', callback_data='menu_alerts')],
-        [InlineKeyboardButton(text='Play Games', callback_data='menu_games')]
-        [InlineKeyboardButton(text='Settings', callback_data='menu_settings')]
-        ])
+        [InlineKeyboardButton(text="Job Reports", callback_data="reports_menu")],
+        [InlineKeyboardButton(text="Play Games", callback_data="menu_games")],
+        [InlineKeyboardButton(text="Settings", callback_data="menu_settings")],
+    ]
+)
 
-# Back button
-back_button = InlineKeyboardMarkup(
-    inline_keyboard=[[InlineKeyboardButton(text="Back", callback_data="menu_back")]
-    ])
+# Game options
+game_options = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="New Tic-Tac-Toe Game", callback_data="newgame_command")],
+        *back_button.inline_keyboard,
+    ]
+)
 
-# Menu Options
-gemini_options = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="Chat", callback_data="llama_chat")],
-    [InlineKeyboardButton(text="Voice", callback_data="llama_voice")],
-    *back_button.inline_keyboard
-    ])
+# Job report options
+reports_options = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="Developers Report", callback_data="dev_reports")],
+        [InlineKeyboardButton(text="DS/DA Report", callback_data="dsa_reports")],
+        [InlineKeyboardButton(text="UK Jobs Report", callback_data="uk_reports")],
+        *back_button.inline_keyboard,
+    ]
+)
 
-reports_options = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="24h Overall", callback_data="reports_overall")],
-    [InlineKeyboardButton(text="Developers Report", callback_data="dev_reports")],
-    [InlineKeyboardButton(text="DS/DA's Report", callback_data="dsa_reports")],
-    [InlineKeyboardButton(text="UK Jobs Report", callback_data="dsa_reports")],
-    [InlineKeyboardButton(text="Websites", callback_data="websites_links")],
-    *back_button.inline_keyboard
-    ])
-
-alerts_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
-    text="Top 10 coins", callback_data="alerts_coins")],
-    [InlineKeyboardButton(text="DeFi", callback_data="defi_alerts")],
-    [InlineKeyboardButton(text="Sources", callback_data="sources_alerts")],
-    *back_button.inline_keyboard
-    ])
-
-settings_options = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
-    text="Bot GitHub", url="https://github.com/MaxSvid/Mirror-Bot")],
-    *back_button.inline_keyboard
-    ])
+# Settings menu
+settings_options = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="Bot GitHub", url="https://github.com/MaxSvid/Mirror-Bot")],
+        *back_button.inline_keyboard,
+    ]
+)

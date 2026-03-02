@@ -1,126 +1,94 @@
-from aiogram import Bot, Dispatcher, F, Router, types
-from aiogram.types import Message, CallbackQuery
-from aiogram.filters import CommandStart, Command
-from aiogram.fsm.state import State, StatesGroup   # Finite State Machine
-from aiogram.fsm.context import FSMContext
-
-import app.keyboards as keyboard
 import logging
 
-# Gemini Itegration 
-from app.ai.chat import npc_agent_reply
+from aiogram import F, Router
+from aiogram.filters import Command, CommandStart
+from aiogram.fsm.context import FSMContext
+from aiogram.types import CallbackQuery, Message
 
-# All handlers should be attached to the Router (or Dispatcher)
+import app.keyboards as keyboard
+from job_reports.reports import fetch_djinni_jobs, format_jobs_message
+
 router = Router()
 
-# FSM
-class NPCState(StatesGroup):
-    waiting_for_msg = State()
+MENU_MESSAGE = "Hello! I'm Mirror bot"
 
-# Command handlers
-MENU_MESSAGE = "Hello! I'm Mirror NPC bot🤖"
 
 @router.message(CommandStart())
 async def cmd_start(message: Message) -> None:
-
-    user_id = message.from_user.id
-    logging.info(f"user_id={user_id}")
-
+    logging.info(f"user_id={message.from_user.id}")
     await message.answer(MENU_MESSAGE, reply_markup=keyboard.main)
-    
-@router.callback_query(F.data == 'menu_back')
+
+
+@router.message(Command("help"))
+async def cmd_help(message: Message) -> None:
+    await message.answer("Available commands: /start, /help, /clear")
+
+
+@router.message(Command("clear"))
+async def cmd_clear(message: Message) -> None:
+    await message.answer("Menu cleared.", reply_markup=None)
+
+
+@router.callback_query(F.data == "menu_back")
 async def menu_back(callback: CallbackQuery) -> None:
-    # shows main menu buttons, no need to change the message text
     await callback.message.edit_text(MENU_MESSAGE, reply_markup=keyboard.main)
     await callback.answer()
 
-@router.message(Command('help'))
-async def cmd_help(message: Message) -> None:
-    await message.answer("Command help, there is no help lox xx")
 
-# Clear command to add for shutting down menu
-@router.message(Command('clear'))
-async def cmd_clear(message: Message) -> None:
-    await message.answer("It will clear something, not sure what yet...")
+# --- Job Reports ---
 
-# ------- CHANGING FROM GEMINI TO LLAMA llama/chat.py -------
-
-# Llama AI menu: this function is an incoming callback query from a callback button in an inline keyboard
-@router.callback_query(F.data == 'menu_llama')
-async def gemini_menu(callback: CallbackQuery) -> None:
-    await callback.message.edit_text(
-        'Chat with Agent',
-        reply_markup=keyboard.gemini_options,
-        parse_mode="Markdown"
-        )
+@router.callback_query(F.data == "reports_menu")
+async def reports_menu(callback: CallbackQuery) -> None:
+    await callback.message.edit_text("Job Report Options", reply_markup=keyboard.reports_options)
     await callback.answer()
 
-# Gemini Start Chat callback
-@router.callback_query(F.data == 'llama_chat')
-async def start_gemini_chat(callback: CallbackQuery, state: FSMContext) -> None:
-    # Set the user into NPC state
-    await state.set_state(NPCState.waiting_for_msg)
-    
+
+@router.callback_query(F.data == "dev_reports")
+async def dev_reports(callback: CallbackQuery) -> None:
+    await callback.message.edit_text("Fetching developer jobs from Djinni...")
+    try:
+        jobs = await fetch_djinni_jobs(limit=10)
+        text = format_jobs_message(jobs, source="Djinni")
+    except Exception as e:
+        logging.error(f"Scraper error: {e}")
+        text = "Failed to fetch jobs. Try again later."
     await callback.message.edit_text(
-        "**NPC Chat Mode: ON**\n\nI'm ready. Talk to me! \n(Type 'exit' or click 'Back' to stop)",
-        reply_markup=keyboard.back_button, # Use your back button here
-        parse_mode="Markdown"
+        text,
+        reply_markup=keyboard.back_button,
+        parse_mode="Markdown",
+        disable_web_page_preview=True,
     )
     await callback.answer()
 
-# NEW: Handle text while in NPC state
-@router.message(NPCState.waiting_for_msg)
-async def handle_npc_messages(message: Message, state: FSMContext, bot: Bot):
-    # Check if user wants to quit
-    if message.text.lower() in ["exit", "stop", "back"]:
-        await state.clear()
-        await message.answer("NPC: Goodbye! Back to the main menu.", reply_markup=keyboard.main)
-        return
 
-    # Show typing indicator
-    await bot.send_chat_action(chat_id=message.chat.id, action="typing")
-    
-    try:
-        # Get NPC response from Gemini
-        npc_response = await npc_agent_reply(message.text)
-        
-        # Send response to user
-        await message.answer(
-            f"🤖 NPC Agent:\n\n{npc_response}",
-            reply_markup=keyboard.back_button
-        )
-    except Exception as e:
-        logging.error(f"Error processing NPC message: {e}")
-        await message.answer(
-            "Sorry, something went wrong. Please try again or check code.",
-            reply_markup=keyboard.back_button
-        )
-
-# Job reports menu:
-@router.callback_query(F.data == 'reports_menu')
-async def settings_reports(callback: CallbackQuery) -> None:
-    await callback.message.edit_text(
-        'Job Report/Search Options',
-        reply_markup=keyboard.reports_options
-        )
+@router.callback_query(F.data == "dsa_reports")
+async def dsa_reports(callback: CallbackQuery) -> None:
+    await callback.message.edit_text("DS/DA reports coming soon.", reply_markup=keyboard.back_button)
     await callback.answer()
 
-# Crypto alerts menu:
-@router.callback_query(F.data == 'menu_alerts')
-async def settings_reports(callback: CallbackQuery) -> None:
-    await callback.message.edit_text(
-        'Crypto prices and DeFi Updates',
-        reply_markup=keyboard.alerts_options
-        )
+
+@router.callback_query(F.data == "uk_reports")
+async def uk_reports(callback: CallbackQuery) -> None:
+    await callback.message.edit_text("UK job reports coming soon.", reply_markup=keyboard.back_button)
     await callback.answer()
 
-# Setting menu
-@router.callback_query(F.data == 'menu_settings')
+
+# --- Games ---
+
+@router.callback_query(F.data == "menu_games")
+async def games_menu(callback: CallbackQuery) -> None:
+    await callback.message.edit_text("Play Tic-Tac-Toe", reply_markup=keyboard.game_options)
+    await callback.answer()
+
+
+@router.callback_query(F.data == "newgame_command")
+async def start_new_tictactoe_game(callback: CallbackQuery, state: FSMContext) -> None:
+    await callback.answer("Game starting... (not implemented yet)")
+
+
+# --- Settings ---
+
+@router.callback_query(F.data == "menu_settings")
 async def settings_menu(callback: CallbackQuery) -> None:
-    await callback.message.edit_text(
-        'Avaliable Settings',
-        reply_markup=keyboard.settings_options
-        )
+    await callback.message.edit_text("Settings", reply_markup=keyboard.settings_options)
     await callback.answer()
-
-

@@ -1,34 +1,24 @@
 import os
-from dotenv import load_dotenv
 import dataclasses
-from typing import Optional
+from dotenv import load_dotenv
 
 load_dotenv()
 
 @dataclasses.dataclass(frozen=True)
-class GeminiConfig:
-    """Configuration for Gemini AI API."""
-    api_key: str = os.environ.get("GEMINI_API_KEY", "")
-    model: str = "gemini-flash-latest"
-
-@dataclasses.dataclass(frozen=True)
-class LlamaConfig:
-    LLAMA_API: str = os.environ.get("LLAMA_API", "")
-
-@dataclasses.dataclass(frozen=True)
 class Settings:
-    """Global application settings."""
-    # Bot settings
     BOT_TOKEN: str = os.environ.get("BOT_TOKEN", "")
     CHAT_ID: str = os.environ.get("CHAT_ID", "")
-    COINGECKO_API: str = os.environ.get("COINGECKO_API", "")
+    POSTGRES_USER: str = os.environ.get("POSTGRES_USER", "")
+    POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD", "")
+    POSTGRES_HOST: str = os.environ.get("POSTGRES_HOST", "localhost")
+    POSTGRES_PORT: str = os.environ.get("POSTGRES_PORT", "5432")
+    POSTGRES_DB: str = os.environ.get("POSTGRES_DB", "")
 
-    # API configurations
-    gemini: GeminiConfig = dataclasses.field(default_factory=GeminiConfig)
-    
-    # Legacy support for GEMINI_API_KEY
     @property
-    def GEMINI_API_KEY(self) -> str:
-        return self.gemini.api_key
+    def db_url(self) -> str:
+        return (
+            f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
+            f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        )
 
-settings = Settings() 
+settings = Settings()

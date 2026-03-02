@@ -1,13 +1,26 @@
-version: '3.9'
-
 services:
   bot:
     build: .
     container_name: mirror_bot
-    restart: always
-    env_file:
-      - .env
-
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   postgres:
-    image: postgres
+    image: postgres:17-alpine
+    container_name: mirror_postgres
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init_DB/database.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
