@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
 import app.keyboards as keyboard
+from app.leaderboard import format_leaderboard, get_weekly_stats
 from job_reports.reports import fetch_djinni_jobs, format_jobs_message
 
 router = Router()
@@ -21,7 +22,14 @@ async def cmd_start(message: Message) -> None:
 
 @router.message(Command("help"))
 async def cmd_help(message: Message) -> None:
-    await message.answer("Available commands: /start, /help, /clear")
+    await message.answer("Available commands: /start, /help, /clear, /leaderboard")
+
+
+@router.message(Command("leaderboard"))
+async def cmd_leaderboard(message: Message) -> None:
+    stats = await get_weekly_stats()
+    text = format_leaderboard(stats)
+    await message.answer(text, parse_mode="Markdown")
 
 
 @router.message(Command("clear"))
@@ -32,6 +40,16 @@ async def cmd_clear(message: Message) -> None:
 @router.callback_query(F.data == "menu_back")
 async def menu_back(callback: CallbackQuery) -> None:
     await callback.message.edit_text(MENU_MESSAGE, reply_markup=keyboard.main)
+    await callback.answer()
+
+
+# --- Leaderboard ---
+
+@router.callback_query(F.data == "leaderboard")
+async def leaderboard_callback(callback: CallbackQuery) -> None:
+    stats = await get_weekly_stats()
+    text = format_leaderboard(stats)
+    await callback.message.edit_text(text, reply_markup=keyboard.back_button, parse_mode="Markdown")
     await callback.answer()
 
 

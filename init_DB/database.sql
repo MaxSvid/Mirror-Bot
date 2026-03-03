@@ -1,20 +1,17 @@
+CREATE DATABASE telegram_bot_db;
+
+\c telegram_bot_db
+
 DROP TABLE IF EXISTS jobs CASCADE;
 DROP TABLE IF EXISTS link_stats CASCADE;
 DROP TABLE IF EXISTS games CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
+
 CREATE TABLE users (
     id          SERIAL PRIMARY KEY,
     telegram_id BIGINT UNIQUE NOT NULL,
     username    VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE link_stats (
-    id         SERIAL PRIMARY KEY,
-    user_id    BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    chat_id    BIGINT NOT NULL,
-    platform   VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE jobs (
@@ -34,4 +31,12 @@ CREATE TABLE games (
     winner_id   BIGINT,
     created_at  TIMESTAMPTZ DEFAULT now(),
     finished_at TIMESTAMPTZ
+);
+
+CREATE TABLE link_stats (
+    id        SERIAL PRIMARY KEY,
+    user_id   BIGINT NOT NULL,
+    username  VARCHAR(100),
+    link_type VARCHAR(20) NOT NULL,
+    sent_at   TIMESTAMPTZ DEFAULT now()
 );
