@@ -200,3 +200,15 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,venv,dotenv,data
+
+### Project-specific ###
+# All .env variants except the example template
+.env.*
+!.env.example
+
+# Docker local overrides
+docker-compose.override.yml
+
+# IDE
+.idea/
+.vscode/

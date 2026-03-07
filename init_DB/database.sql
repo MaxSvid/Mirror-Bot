@@ -1,12 +1,10 @@
-CREATE DATABASE telegram_bot_db;
-
-\c telegram_bot_db
+-- Tables are created inside the database defined by POSTGRES_DB env var.
+-- Docker entrypoint already creates that database before running this script.
 
 DROP TABLE IF EXISTS jobs CASCADE;
 DROP TABLE IF EXISTS link_stats CASCADE;
 DROP TABLE IF EXISTS games CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-
 
 CREATE TABLE users (
     id          SERIAL PRIMARY KEY,

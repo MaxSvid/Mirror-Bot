@@ -1,5 +1,36 @@
+# Version control
 .git
-.venv
+.gitignore
+
+# Secrets & env
 .env
+.env.*
+.env.example
+
+# Python
+.venv
 __pycache__
 *.pyc
+*.pyo
+*.pyd
+.Python
+
+# Dev/local only
+db_scripts/
+deploy.sh
+documentation.md
+README.md
+*.md
+
+# Docker meta (not needed inside image)
+.dockerignore
+docker-compose.yaml
+docker-compose.override.yml
+
+# Logs
+*.log
+
+# Tests / coverage
+.pytest_cache/
+htmlcov/
+.coverage
