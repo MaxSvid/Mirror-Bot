@@ -1,0 +1,26 @@
+version: '3.8'
+
+networks:
+  db_network:
+    external: true  # joins the existing network where postgres_main lives
+
+services:
+  bot:
+    build: .
+  
+  bot_database:
+    image: imageName
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - .env
+    ports:
+      -
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    restrart: always
+
+volumes:
+  pgadmin-data
+  
