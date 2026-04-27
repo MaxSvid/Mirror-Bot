@@ -1,12 +1,13 @@
 import os
-import dataclasses
+from dataclasses import dataclass 
 from dotenv import load_dotenv
 
 load_dotenv()
 
-@dataclasses(frozen=True)
+@dataclass(frozen=True)
 class Settings:
     BOT_TOKEN: str = os.getenv("BOT_TOKEN", "")
-    OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", )
+    OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
+
 
 settings = Settings()

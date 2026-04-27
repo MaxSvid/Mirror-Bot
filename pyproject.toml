@@ -8,6 +8,7 @@ dependencies = [
     "aiogram>=3.26.0",
     "dotenv>=0.9.9",
     "psycopg[binary]>=3.3.3",
+    "requests>=2.33.1",
 ]
 
 [dependency-groups]
