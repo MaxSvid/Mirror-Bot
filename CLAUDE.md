@@ -68,3 +68,10 @@ uv run python main.py    # Run the bot
 uv run ruff check .      # Lint
 uv run ruff format .     # Format
 ```
+
+## Git Workflow
+- Always create a feature branch before making changes
+- Branch naming: feature/description or fix/description  
+- Commit messages must be descriptive and concise
+- Never push directly to main
+- Always run `uv run ruff check .` before committing
