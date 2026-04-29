@@ -16,7 +16,8 @@ An async Telegram group bot built with aiogram 3. Supports command menus, inline
 |---|---|
 | `bot/handlers.py` | Primary router — `/start`, inline-button callbacks, Settings menu |
 | `bot/keyboards.py` | Inline keyboard builders consumed by handlers |
-| `bot/replies.py` | Secondary router — auto-reply triggers (social-media links, phrases); stubs |
+| `bot/replies.py` | Secondary router — auto-reply triggers (TikTok, YouTube Shorts, Instagram Reels links, and "окей" message) |
+| `bot/database/replies.json` | Reply text pools keyed by category (`ok_replies`, `tiktok_replies`, `youtube_replies`, `insta_replies`, `thanks_replies`) |
 | `bot/database/connect.py` | DB connection helper — currently empty |
 | `bot/openrouterai/openrouter.py` | OpenRouter API client — token validation helper, not yet wired to handlers |
 | `bot/config.py` | Frozen `Settings` dataclass; reads env vars |
@@ -38,6 +39,8 @@ An async Telegram group bot built with aiogram 3. Supports command menus, inline
 ## Data Models
 
 No ORM or schema defined yet. `init_DB/database.sql` only contains `CREATE DATABASE tg_bot_mirror`. Table definitions and a migration strategy are pending.
+
+`bot/database/replies.json` holds reply text pools. Each key maps to a list of strings; handlers pick one at random via `random.choice()`. Path is resolved relative to the project root (`bot/database/replies.json`), so the bot must be run from the project root.
 
 `Settings` (frozen dataclass in `bot/config.py`):
 - `BOT_TOKEN` — Telegram bot token

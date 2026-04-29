@@ -1,0 +1,32 @@
+# Virtual environments 
+.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.gitignore
+
+# Python cache / compiled bytecode 
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# Dev tooling 
+.claude/
+.ruff_cache/
+
+# Docker / compose files (not needed inside the image) 
+Dockerfile*
+compose*.yaml
+compose*.yml
+.dockerignore
+
+# Docs 
+README.md
+CLAUDE.md
